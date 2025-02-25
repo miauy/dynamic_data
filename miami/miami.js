@@ -17,10 +17,25 @@ app.set('view engine', 'handlebars');
 const port = process.env.port || 3000
 
 let navigation = require("./data/navigation.json")
+//Import slideshow
+let slideshow = require("./data/slideshow.json")
 //create some routes
 app.get('/', (request, response) =>{
+//Filter slideshow object to get home page only
+    let slides = slideshow.slides.filter((slides)=>{
+        //filter
+        return slides.home == true
+    })
+
     response.type('text/html')
-    response.render('home', {title: 'Miami Travel Site', nav: navigation})
+    response.render('page', {
+        title: 'Miami Travel Site', 
+        nav: navigation, 
+        slides: slides})
+})
+
+app.get('/page/:page', (req,res) =>{
+
 })
 
 app.get('/about', (request, response) =>{
@@ -54,6 +69,13 @@ app.get('/newsletter-signup', handler.newsletterSignup)
 
 app.post('/newsletter-signup/process', handler.newsletterSignupProcess)
 app.get('/newsletter/list', handler.newsletterSignupList)
+
+//Dynamic Routes
+//details show one record
+app.get('/newsletter/detail/:email', handler.newsletterUser)
+//delete users by email
+app.get('/newsletter/delete/:email', handler.newsletterUserDelete)
+
 
 
 

@@ -3,8 +3,12 @@ let eList=require('../data/emails.json')
 //import file system module
 const fs = require('fs')
 
+//Include navigation
+let navigation = require("../data/navigation.json")
+
+
 exports.newsletterSignup = (req, res) => {
-    res.render('newsletter-signup', {csrf : 'super secret'})
+    res.render('newsletter-signup', {csrf : 'super secret', nav: navigation})
 }
 
 exports.newsletterSignupProcess = (req, res) => {
@@ -35,7 +39,42 @@ exports.newsletterSignupProcess = (req, res) => {
 }
 
 exports.newsletterSignupList = (req, res) => {
+    let eList = require('../data/emails.json')
+    
     console.log(eList)
-    res.render('userspage', {"users": eList.users})
+    res.render('userspage', {"users": eList.users, nav: navigation})
+    
 }
 
+exports.newsletterUser = (req, res) => {
+    console.log(eList)
+    //filter each user and put into the variable user
+    let userDetails = eList.users.filter((user)=>{
+        return user.email == req.params.email
+    })
+
+    console.log(userDetails)
+    res.render('userdetails', {"users": userDetails, nav: navigation})
+}
+
+exports.newsletterUserDelete = (req, res) => {
+    let newsList = {}
+    //retrieve all users filtering out the email we don't want
+    // use not equals
+    newsList.users = eList.users.filter((user)=>{
+        return user.email != req.params.email
+
+    })
+    console.log("Deleting " + req.params.email)
+
+    //convert the object to a string before writing to the file
+    let json = JSON.stringify(newsList)
+
+    fs.writeFileSync('./data/emails.json',json, 'utf-8', ()=>{})
+
+    delete require.cache[require.resolve('../data/emails.json')]//clear cache from module
+
+    res.redirect(303, '/newsletter/list')
+
+
+}

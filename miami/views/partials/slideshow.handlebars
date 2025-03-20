@@ -4,10 +4,10 @@
 
     {{#each slides}}
     <div class="carousel-item {{#if @first}}active{{/if}}">
-      {{!-- <img src="..." class="d-block w-100" alt="..."> --}}
-      <li>{{this.url}}</li>
-      <li>{{this.home}}</li>
-      <li>{{this.page}}</li>
+        <a href="/page/{{this.page}}">
+            <img src="{{this.url}}" class="d-block w-100" alt="...">
+            
+        </a>
     </div>
     {{/each}}
     

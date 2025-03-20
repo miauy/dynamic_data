@@ -1,0 +1,52 @@
+{
+    "locations":[
+        {
+            "page": "nightlife",
+            "name": "Factory Town",
+            "description": "Factory Town Miami is an immersive, industrial-chic venue that brings the city’s underground music scene to life. Housed in a converted warehouse district, it hosts high-energy electronic shows and creative pop-up events that capture Miami’s eclectic nightlife spirit. With spacious open-air areas, vibrant light displays, and an edgy ambiance, Factory Town offers an unforgettable experience for those seeking a fresh and unconventional place to dance the night away.",
+            "image": "/images/destinations/destination.jpg"
+        },
+        {
+            "page": "nightlife",
+            "name": "The Grove",
+            "description": "Coconut Grove’s nightlife presents a laid-back yet lively alternative to Miami’s bustling party scene. Tucked away among lush greenery and scenic bay views, it’s home to an eclectic mix of inviting bars, rooftop lounges, and late-night dining options that embrace the neighborhood’s bohemian charm. Whether you’re looking for intimate live music venues, craft cocktail bars, or laid-back open-air cafes, Coconut Grove’s warm community vibe and scenic surroundings make it a hidden gem for those seeking a relaxed evening out.",
+            "image": "/images/destinations/destination.jpg"
+        },
+        {
+            "page": "nightlife",
+            "name": "Titanic",
+            "description": "Titanic Brewery & Restaurant, conveniently located near the University of Miami, is a cozy neighborhood hangout that blends laid-back college-town vibes with a passion for handcrafted beers. From bold ales to creative seasonal brews, Titanic offers a diverse drink menu perfect for both casual sips and spirited celebrations. Enjoy hearty pub fare, friendly conversation, and live entertainment, all while basking in the warm, welcoming atmosphere that makes Titanic a go-to spot for Hurricanes and locals alike.",
+            "image": "/images/destinations/destination.jpg"
+        },
+        {
+            "page": "nightlife",
+            "name": "Bodega",
+            "description": "Bodega in Coconut Grove seamlessly blends street-style Mexican eats with a lively social scene. Step through its unassuming storefront to discover a neon-lit lounge perfect for sipping handcrafted cocktails and grooving to the latest beats. The menu boasts flavorful tacos, fresh guacamole, and other fan favorites, while the laid-back vibe and eclectic decor make it a must-visit spot for day-to-night fun. Whether you’re fueling up on quick bites or looking for a spirited evening out, Bodega in the Grove delivers an unforgettable experience.",
+            "image": "/images/destinations/destination.jpg"
+        },
+        {
+            "page": "beaches",
+            "name": "South Beach",
+            "description": "South Beach embodies the perfect blend of sun-kissed relaxation and nonstop excitement. Soak up the rays on the famous shoreline, stroll past vibrant Art Deco architecture, or indulge in world-class dining and shopping along Ocean Drive. By night, the neighborhood comes alive with trendy rooftop lounges, pulsing nightclubs, and unforgettable seaside parties. From water sports to people-watching, there’s never a dull moment in South Beach’s iconic playground.",
+            "image": "/images/destinations/destination.jpg"
+        },
+        {
+            "page": "beaches",
+            "name": "Crandon Park",
+            "description": "Crandon Park on Key Biscayne offers a serene island retreat from the hustle of the city. Enjoy its pristine beach with soft sands and inviting waters, perfect for sunbathing or a leisurely swim. Explore winding nature trails, meet local wildlife at the park’s Nature Center, or take advantage of the tennis facilities and picnic areas. With its lush greenery, peaceful shoreline, and family-friendly vibe, Crandon Park promises an idyllic escape for all.",
+            "image": "/images/destinations/destination.jpg"
+        },
+        {
+            "page": "beaches",
+            "name": "Cape Florida",
+            "description": "Cape Florida, located at the southern tip of Key Biscayne, is a hidden gem known for its towering historic lighthouse and postcard-worthy shoreline. Stroll along the soft sands, take a refreshing dip in the clear waters, or enjoy a leisurely picnic with family and friends. Whether you’re climbing the lighthouse for stunning panoramic views or simply savoring the sea breeze, Cape Florida offers a tranquil getaway where history and nature beautifully converge.",
+            "image": "/images/destinations/destination.jpg"
+        },
+        {
+            "page": "beaches",
+            "name": "Hobie Beach",
+            "description": "Hobie Beach, often called “Windsurfer Beach,” is a favorite spot for water sports enthusiasts and dog lovers alike. Catch a breezy session of windsurfing or paddleboarding against the striking backdrop of the Miami skyline. The calm, shallow waters make it a great place to learn new skills or simply relax with your four-legged friend. With its laid-back vibe and panoramic city views, Hobie Beach is the perfect place to unwind and enjoy Miami’s coastal charm.",
+            "image": "/images/destinations/destination.jpg"
+        }
+    ]
+}

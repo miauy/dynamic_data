@@ -1,0 +1,11 @@
+body {
+    padding-top: 20px;
+  }
+  
+  .table-actions {
+    white-space: nowrap;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }

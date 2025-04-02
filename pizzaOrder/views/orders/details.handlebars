@@ -1,40 +1,17 @@
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Order Details</h2>
-    <a href="/orders" class="btn btn-secondary">Back to List</a>
-</div>
+<h1>Order Details</h1>
 
 <div class="card">
-    <div class="card-body">
-        <dl class="row">
-            <dt class="col-sm-3">Order ID</dt>
-            <dd class="col-sm-9">{{order.id}}</dd>
-
-            <dt class="col-sm-3">Customer</dt>
-            <dd class="col-sm-9">{{order.Customer.firstName}} {{order.Customer.lastName}}</dd>
-
-            <dt class="col-sm-3">Size</dt>
-            <dd class="col-sm-9">{{order.size}}</dd>
-
-            <dt class="col-sm-3">Toppings</dt>
-            <dd class="col-sm-9">{{order.toppings}}</dd>
-
-            <dt class="col-sm-3">Notes</dt>
-            <dd class="col-sm-9">{{order.notes}}</dd>
-
-            <dt class="col-sm-3">Status</dt>
-            <dd class="col-sm-9">
-                <span class="badge 
-                    {{#if (eq order.status 'New')}}bg-primary{{/if}}
-                    {{#if (eq order.status 'Processing')}}bg-warning text-dark{{/if}}
-                    {{#if (eq order.status 'Completed')}}bg-success{{/if}}">
-                    {{order.status}}
-                </span>
-            </dd>
-        </dl>
-
-        <div class="d-flex gap-2">
-            <a href="/orders/edit/{{order.id}}" class="btn btn-primary">Edit</a>
-            <a href="/orders/delete/{{order.id}}" class="btn btn-danger">Delete</a>
-        </div>
-    </div>
+  <div class="card-body">
+    <h5 class="card-title">Order #{{order.id}}</h5>
+    <p class="card-text">
+      <strong>Customer:</strong> {{order.Customer.firstName}} {{order.Customer.lastName}}<br>
+      <strong>Size:</strong> {{order.size}}<br>
+      <strong>Toppings:</strong> {{order.toppings}}<br>
+      <strong>Notes:</strong> {{order.notes}}<br>
+      <strong>Total:</strong> ${{order.total}}<br>
+      <strong>Status:</strong> {{order.status}}
+    </p>
+    <a href="/orders/{{order.id}}/edit" class="btn btn-warning">Edit</a>
+    <a href="/orders" class="btn btn-secondary">Back to List</a>
+  </div>
 </div>

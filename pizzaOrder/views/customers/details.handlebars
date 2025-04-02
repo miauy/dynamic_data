@@ -1,39 +1,14 @@
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Customer Details</h2>
-    <a href="/customers" class="btn btn-secondary">Back to List</a>
-</div>
+<h1>Customer Details</h1>
 
 <div class="card">
-    <div class="card-body">
-        <dl class="row">
-            <dt class="col-sm-3">First Name</dt>
-            <dd class="col-sm-9">{{customer.firstName}}</dd>
-
-            <dt class="col-sm-3">Last Name</dt>
-            <dd class="col-sm-9">{{customer.lastName}}</dd>
-
-            <dt class="col-sm-3">Address</dt>
-            <dd class="col-sm-9">{{customer.address}}</dd>
-
-            <dt class="col-sm-3">City</dt>
-            <dd class="col-sm-9">{{customer.city}}</dd>
-
-            <dt class="col-sm-3">State</dt>
-            <dd class="col-sm-9">{{customer.state}}</dd>
-
-            <dt class="col-sm-3">Zip Code</dt>
-            <dd class="col-sm-9">{{customer.zip}}</dd>
-
-            <dt class="col-sm-3">Phone</dt>
-            <dd class="col-sm-9">{{customer.phone}}</dd>
-
-            <dt class="col-sm-3">Email</dt>
-            <dd class="col-sm-9">{{customer.email}}</dd>
-        </dl>
-
-        <div class="d-flex gap-2">
-            <a href="/customers/edit/{{customer.id}}" class="btn btn-primary">Edit</a>
-            <a href="/customers/delete/{{customer.id}}" class="btn btn-danger">Delete</a>
-        </div>
-    </div>
+  <div class="card-body">
+    <h5 class="card-title">{{customer.firstName}} {{customer.lastName}}</h5>
+    <p class="card-text">
+      <strong>Address:</strong> {{customer.address}}, {{customer.city}}, {{customer.state}} {{customer.zip}}<br>
+      <strong>Phone:</strong> {{customer.phone}}<br>
+      <strong>Email:</strong> {{customer.email}}
+    </p>
+    <a href="/customers/{{customer.id}}/edit" class="btn btn-warning">Edit</a>
+    <a href="/customers" class="btn btn-secondary">Back to List</a>
+  </div>
 </div>

@@ -1,40 +1,186 @@
-const express = require('express');
-const exphbs = require('express-handlebars');
-const path = require('path');
-const sequelize = require('./models/index');
-const Customer = require('./models/customer');
-const Order = require('./models/order');
+const express = require('express')
 
-const app = express();
+const app = express()
 
-// Set up Handlebars
-app.engine('handlebars', exphbs.engine({
-  defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, 'views/layouts')
-}));
-app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'views'));
+//import body-parser
+const bodyParser = require('body-parser')
 
-// Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+//Define our models and init database 
+const { Sequelize , Model, DataTypes } = require('sequelize')
+//Create a sequelize instance
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'database.sqlite'
+})   
+// Create your first Model
+const Customer = sequelize.define('Customers',
+  {
+    first_name: DataTypes.STRING,
+    last_name: DataTypes.STRING,
+    address: DataTypes.STRING,
+    city: DataTypes.STRING,
+    state: DataTypes.STRING,
+    zip: DataTypes.STRING,
+    phone: DataTypes.STRING,
+    email: DataTypes.STRING,
+  })
 
-// Routes
-app.use('/customers', require('./routes/customers'));
-app.use('/orders', require('./routes/orders'));
+ const Order = sequelize.define('Orders', {
+  size: DataTypes.STRING,
+  toppings: DataTypes.STRING,
+  notes: DataTypes.STRING,
+  total: DataTypes.NUMBER,
+  status: DataTypes.STRING,
+}) 
 
-//home route
+// Make the relationship to Customer
+Order.belongsTo(Customer)
+Customer.hasMany(Order)
 
-app.get('/', (req, res) => {
-    res.render('home');
-  });
+//Initialize bodyparser.. converts POST request objects to json
+app.use(bodyParser.urlencoded({extended:true}))
+//app.use(bodyParser.json())
 
-// Sync database and start server
-sequelize.sync().then(() => {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-}).catch(err => {
-  console.error('Unable to connect to the database:', err);
+//sync the models to the database
+sequelize.sync()
+
+//initialize handlebars
+const handlebars = require('express-handlebars')
+app.engine('handlebars', handlebars.engine())
+app.set('view engine', 'handlebars')
+
+//set the server port
+const port = process.env.port || 3000 
+
+//create routes 
+app.get('/', (req,res)=>{
+    res.type('text/html')
+    res.render('page')
+})
+// C R U D
+//create a customer
+app.get('/customer/create', (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  res.type('text/html')
+  res.render('customer')
 });
+// C create
+app.post('/customer/create', async (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  console.log(req.body)
+  //before creating the record, we can check for errors of missing information
+  const newCustomer = await Customer.create({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+    email: req.body.email,
+    phone: req.body.phone,
+   });
+  res.type('text/html')
+  //redirect to the customers list
+  res.redirect('/customers')
+  // res.render('customers',{customers})
+});
+// R read  
+//display all customers
+app.get('/customers', async (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  const customers = await Customer.findAll().then((data)=>{
+    console.log(data)
+    res.type('text/html')
+    res.render('customers',{"customers":data})
+  });
+});
+//display specific customer by id.. also a R read operation
+app.get('/customer/details/:id', async (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  const customers = await Customer.findOne({where: {id: req.params.id},raw:true}).then((data)=>{
+    console.log("data")
+    console.log(data)
+    console.log("********")
+    res.type('text/html')
+    res.render('customerdetails',{"customers":data})
+  });
+});
+//edit a customer
+app.get('/customer/edit/:id', async (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  const customers = await Customer.findOne({where: {id: req.params.id},raw:true}).then((data)=>{
+    console.log("data")
+    console.log(data)
+    console.log("********")
+    res.type('text/html')
+    res.render('customer',{"customers":data})
+  });
+});
+
+app.post('/customer/edit', async (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  console.log(req.body)
+  const customers = await Customer.findByPk(req.body.id);
+  console.log(customers)
+  console.log(req.body.id)
+  await customers.update({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+    email: req.body.email,
+    phone: req.body.phone,
+   }).then(()=>{
+    customers.save()
+    res.type('text/html')
+    //redirect to the customers list
+    res.redirect('/customers')
+   });
+
+});  
+// D delete a customer 
+app.get('/customer/delete/:id', async (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  const customers = await Customer.findByPk(req.params.id);
+  customers.destroy();
+  res.type('text/html')
+  //res.send('cusromer ' + req.params.id + ' has been deleted')
+  res.redirect('/customers')
+
+});
+// Order process
+//create a customer
+app.get('/order/create', (req, res) => {
+  // req.file is the name of your file in the form above, here 'avatar'
+  // req.body will hold the text fields, if there were any 
+  res.type('text/html')
+  res.render('order')
+});
+
+  
+//set up error handling 
+//not found 
+app.use((req,res)=>{
+    res.type('text/html')
+    res.status(404)
+    res.send('not found')
+})
+//server errors 
+app.use( (error,req,res,next)=>{
+    res.type('text/html')
+    res.status(500)
+    res.send('server error')
+})
+
+app.listen(port,()=>{
+    console.log(`server started on http://localhost:${port}  ctrl + c to terminate`)
+})
